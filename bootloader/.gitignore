@@ -1,0 +1,6 @@
+*.o
+*.lst
+*.bin
+*.hex
+*.map
+!releases/*.hex
