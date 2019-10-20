@@ -447,6 +447,7 @@ se0Delay:
     brne    se0Delay        ;[13] [16] [19] [22]
     out     USBOUT, x1      ;[23] <-- out J (idle) -- end of SE0 (EOP signal)
     out     USBDDR, x2      ;[24] <-- release bus now
-    out     USBOUT, x3      ;[25] <-- ensure no pull-up resistors are active
+    ;out     USBOUT, x3      ;[25] <-- ensure no pull-up resistors are active
+    out     USBOUT, x1      ;[25] <-- ensure no pull-up resistors are active
     rjmp    doReturn
 

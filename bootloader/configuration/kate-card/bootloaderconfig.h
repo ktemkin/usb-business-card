@@ -38,13 +38,6 @@
  */
 
 
-/**
- * We connect our D+ resistor to an I/O pin, so we can control the presence of a 
- * pull-up resistor.
- */ 
-#define USB_CFG_PULLUP_IOPORTNAME       B
-#define USB_CFG_PULLUP_BIT              2
-
 
 #define USB_CFG_CLOCK_KHZ       (F_CPU/1000)
 /* Clock rate of the AVR in kHz. Legal values are 12000, 12800, 15000, 16000,
@@ -219,7 +212,7 @@
 
 #define LED_DDR     DDRB
 #define LED_PORT    PORTB
-#define LED_PIN     PB3
+#define LED_PIN     3
 
 /*
  *  This is the implementation of the LED code. Change the configuration above unless you want to 
@@ -242,7 +235,7 @@
 #elif LED_MODE==ACTIVE_LOW
   #define LED_INIT(x)   LED_PORT &=~_BV(LED_PIN);   
   #define LED_EXIT(x)   LED_DDR  &=~_BV(LED_PIN);
-  #define LED_MACRO(x)  if ( x & 0x4c ) {LED_DDR&=~_BV(LED_PIN);} else {LED_DDR|=_BV(LED_PIN);}  
+  #define LED_MACRO(x)  if ( ! (x & 0x4c) ) {LED_DDR&=~_BV(LED_PIN);} else {LED_DDR|=_BV(LED_PIN);}  
 #elif LED_MODE==NONE
   #define LED_INIT(x)
   #define LED_EXIT(x)

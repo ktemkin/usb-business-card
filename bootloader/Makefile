@@ -19,11 +19,13 @@ CFLAGS =
 CONFIGPATH	  = configuration/$(CONFIG)
 include $(CONFIGPATH)/Makefile.inc
 
-PROGRAMMER ?= -c USBasp
+PROGRAMMER ?= -c dragon_isp
+FREQUENCY  ?= 1kHz
+
 # PROGRAMMER contains AVRDUDE options to address your programmer
 
 # Tools:
-AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE) 
+AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE) -B $(FREQUENCY)
 CC = avr-gcc
 
 # Options:
@@ -53,6 +55,7 @@ all: main.hex
 	@$(CC) $(CFLAGS) -S $< -o $@
 
 flash:	all
+	@echo Using a bootloader start address of $(BOOTLOADER_ADDRESS).
 	$(AVRDUDE) -U flash:w:main.hex:i -B 20
 
 readflash:
@@ -71,17 +74,13 @@ clean:
 	@rm -f main.hex main.bin main.c.lst main.map main.raw *.o usbdrv/*.o main.s usbdrv/oddebug.s usbdrv/usbdrv.s main.lss
 
 # file targets:
-main.bin:	$(OBJECTS)
+main.bin:	$(OBJECTS) $(CONFIGPATH)/bootloaderconfig.h
 	@$(CC) $(CFLAGS) -o main.bin $(OBJECTS) $(LDFLAGS)
 
 main.hex:	main.bin
 	@echo Building Micronucleus configuration: $(CONFIG)
 	@rm -f main.hex main.eep.hex
 	@avr-objcopy -j .text -j .data -O ihex main.bin main.hex
-	@echo Size of sections:
-	@avr-size main.bin	
-	@echo Size of binary hexfile. Use the "data" size to calculate the bootloader address:
-	@avr-size main.hex
 
 upgrade: main.bin
 	avr-objcopy -O binary main.bin main.raw

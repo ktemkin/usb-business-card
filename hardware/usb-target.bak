@@ -306,5 +306,4 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microc
 	1    0    0    -1  
 $EndComp
 NoConn ~ 3350 3700
-NoConn ~ 3750 4050
 $EndSCHEMATC
