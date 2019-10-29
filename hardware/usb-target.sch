@@ -114,7 +114,7 @@ L Device:R R1
 U 1 1 5DA0781E
 P 3650 3400
 F 0 "R1" V 3600 3200 50  0000 C CNN
-F 1 "1K" V 3600 3600 50  0000 C CNN
+F 1 "1.5K" V 3600 3600 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 3580 3400 50  0001 C CNN
 F 3 "~" H 3650 3400 50  0001 C CNN
 	1    3650 3400
@@ -306,5 +306,4 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microc
 	1    0    0    -1  
 $EndComp
 NoConn ~ 3350 3700
-NoConn ~ 3750 4050
 $EndSCHEMATC
