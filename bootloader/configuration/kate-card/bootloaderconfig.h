@@ -5,11 +5,12 @@
  * 
  * Controller type: ATtiny 85 - 16.5 MHz
  * Configuration:   Default configuration
- *       USB D- :   PB3
- *       USB D+ :   PB4
- *       Entry  :   Always
- *       LED    :   None
- *       OSCCAL :   Stays at 16 MHz
+ *       USB D-     :   PB2
+ *       USB D+     :   PB1
+ *       USB Pull R :
+ *       Entry      :   Always
+ *       LED        :   PB4, active low
+ *       OSCCAL     :   Stays at 16 MHz
  * Note: Uses 16.5 MHz V-USB implementation with PLL
  * Last Change:     Mar 16,2014
  *
@@ -37,6 +38,18 @@
  * This may be any bit in the port, but must be configured as a pin change interrupt.
  */
 
+
+#define USB_CFG_PULLUP_IOPORTNAME B
+/* If you connect the 1.5k pullup resistor from D- to a port pin instead of
+ * V+, you can connect and disconnect the device from firmware by calling
+ * the macros usbDeviceConnect() and usbDeviceDisconnect() (see usbdrv.h).
+ * This constant defines the port on which the pullup resistor is connected.
+ */
+#define USB_CFG_PULLUP_BIT 0
+/* This constant defines the bit number in USB_CFG_PULLUP_IOPORT (defined
+ * above) where the 1.5k pullup resistor is connected. See description
+ * above for details.
+ */
 
 
 #define USB_CFG_CLOCK_KHZ       (F_CPU/1000)
@@ -212,7 +225,7 @@
 
 #define LED_DDR     DDRB
 #define LED_PORT    PORTB
-#define LED_PIN     3
+#define LED_PIN     4
 
 /*
  *  This is the implementation of the LED code. Change the configuration above unless you want to 

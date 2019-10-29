@@ -42,17 +42,17 @@ OBJECTS += osccalASM.o
 all: main.hex
 
 .c.o:
-	@$(CC) $(CFLAGS) -c $< -o $@ -Wa,-ahls=$<.lst
+	$(CC) $(CFLAGS) -c $< -o $@ -Wa,-ahls=$<.lst
 
 .S.o:
-	@$(CC) $(CFLAGS) -x assembler-with-cpp -c $< -o $@
+	$(CC) $(CFLAGS) -x assembler-with-cpp -c $< -o $@
 # "-x assembler-with-cpp" should not be necessary since this is the default
 # file type for the .S (with capital S) extension. However, upper case
 # characters are not always preserved on Windows. To ensure WinAVR
 # compatibility define the file type manually.
 
 .c.s:
-	@$(CC) $(CFLAGS) -S $< -o $@
+	$(CC) $(CFLAGS) -S $< -o $@
 
 flash:	all
 	@echo Using a bootloader start address of $(BOOTLOADER_ADDRESS).

@@ -7,8 +7,16 @@ import math
 import sys
 
 # Read the size of our bootloader...
-output = subprocess.getoutput("avr-size main.hex")
-size = int(output.split()[-3])
+try:
+    output = subprocess.getoutput("avr-size main.hex")
+    size = int(output.split()[-3])
+
+except:
+
+    # On error, we'll assume we haven't generated files, yet.
+    # Use a dummy address to start with.
+    size = 0x19c0
+
 
 # ... and figure out where it should reside, in order to be at the end of ROM.
 bootloader_address = ((8192 - size) // 64) * 64
